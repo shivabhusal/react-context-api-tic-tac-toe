@@ -44,11 +44,11 @@ export default class Canvas extends React.Component {
         var nextTurn = this.state.nextTurn == 0 ? 1 : 0;
         var lastMove = squareId;
         var {winner, gameOver, gamerSquares}  = this.determineGameOver(squares);
-        // var winner = gameOver ? this.state.nextTurn : null;
         this.setState({squares, nextTurn, lastMove, gamerSquares, gameOver, winner})
     }
 
     determineGameOver = (squares) => {
+        var that = this;
         var gameOver = false;
         var winner = null;
         var gamerSquares = [];
@@ -57,11 +57,13 @@ export default class Canvas extends React.Component {
             if (squares[arr[0]] == squares[arr[1]] && squares[arr[1]] == squares[arr[2]] && squares[arr[2]] != null) {
                 gameOver = true;
                 gamerSquares = arr;
-                winner = this.state.nextTurn;
+                winner = that.state.nextTurn;
             }
         });
 
-        if(squares.indexOf(null) == -1){
+        // Game ends, all squares are filled but game is not over yet
+        //  Mark the game-over and declare no body won
+        if(!gameOver && squares.indexOf(null) == -1){
             gameOver = true;
             winner = null;
         }
@@ -80,14 +82,14 @@ export default class Canvas extends React.Component {
     };
 
     renderHeader = () => {
-        if (this.state.gameOver && this.state.winner) {
+        if (this.state.gameOver && this.state.winner != null) {
             return (
                 <h6>
                     <span className="font-weight-bold">!! {this.state.players[this.state.winner].name}</span>
                     &nbsp; wins the game !!
                 </h6>
             )
-        } else if (!this.state.winner && this.state.gameOver == true)
+        } else if (!this.state.winner && this.state.gameOver)
         {
             return (
                 <h6>

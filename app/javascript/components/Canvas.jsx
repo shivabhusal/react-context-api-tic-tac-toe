@@ -91,6 +91,10 @@ export default class Canvas extends React.Component {
         }
     };
 
+    startOver = ()=>{
+        this.setState(DefaultCanvasState);
+    };
+
     render = () => (
         <React.Fragment>
             <NavBar user={this.state.currentUser}/>
@@ -145,14 +149,11 @@ export default class Canvas extends React.Component {
     drawPlayAgain = () => {
         if (this.state.gameOver) {
             return (
-                <button className="btn btn-primary mx-auto mt-4">
+                <button onClick={this.startOver} className="btn btn-primary mx-auto mt-4">
                     <i className="fas fa-redo"></i>
                     &nbsp;Play Again
                 </button>)
         }
     };
 
-    toggleSquare = () => {
-
-    }
 }

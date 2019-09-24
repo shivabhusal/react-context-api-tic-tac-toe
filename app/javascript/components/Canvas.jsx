@@ -18,7 +18,6 @@ const DefaultCanvasState = {
     winner: null,
     nextTurn: 0,
     lastMove: null,
-
     squares: Array(9).fill(null),
 
 };
@@ -44,22 +43,30 @@ export default class Canvas extends React.Component {
         squares[squareId] = this.state.players[this.state.nextTurn].symbol;
         var nextTurn = this.state.nextTurn == 0 ? 1 : 0;
         var lastMove = squareId;
-        var {gameOver,gamerSquares}  = this.determineGameOver(squares);
-        var winner = gameOver ? this.state.nextTurn : null;
+        var {winner, gameOver, gamerSquares}  = this.determineGameOver(squares);
+        // var winner = gameOver ? this.state.nextTurn : null;
         this.setState({squares, nextTurn, lastMove, gamerSquares, gameOver, winner})
     }
 
     determineGameOver = (squares) => {
         var gameOver = false;
+        var winner = null;
         var gamerSquares = [];
         var pattern = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
         pattern.forEach((arr) => {
             if (squares[arr[0]] == squares[arr[1]] && squares[arr[1]] == squares[arr[2]] && squares[arr[2]] != null) {
                 gameOver = true;
                 gamerSquares = arr;
+                winner = this.state.nextTurn;
             }
         });
-        return {gameOver, gamerSquares};
+
+        if(squares.indexOf(null) == -1){
+            gameOver = true;
+            winner = null;
+        }
+
+        return {winner, gameOver, gamerSquares};
     };
 
     valid = (squareId) => {
@@ -73,14 +80,21 @@ export default class Canvas extends React.Component {
     };
 
     renderHeader = () => {
-        if (this.state.gameOver) {
+        if (this.state.gameOver && this.state.winner) {
             return (
                 <h6>
                     <span className="font-weight-bold">!! {this.state.players[this.state.winner].name}</span>
-                    &nbsp; won the game !!
+                    &nbsp; wins the game !!
                 </h6>
             )
-        } else (this.state.gameOver)
+        } else if (!this.state.winner && this.state.gameOver == true)
+        {
+            return (
+                <h6>
+                    Game Over, but no body wins.
+                </h6>
+            )
+        } else
         {
             return (
                 <h6>

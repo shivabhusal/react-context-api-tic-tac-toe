@@ -9,6 +9,6 @@ import '../stylesheets/styles.scss'
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <Canvas/>,
-    document.body.appendChild(document.createElement('div')),
+    document.getElementById('app'),
   )
 })

@@ -6,7 +6,7 @@ var NavBar = (props) => (
                 aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
         </button>
-        <a className="navbar-brand" href="#">Tic Tac Toe</a>
+        <a className="navbar-brand" href="/">Tic Tac Toe</a>
 
         <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -18,13 +18,12 @@ var NavBar = (props) => (
                         <span className="nav-avatar" style={{backgroundImage: `url(${props.user.avatar})`}} alt=""/>
                     </a>
                 </li>
+
             </ul>
 
-            <form className="form-inline my-2 my-lg-0">
-                <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-
+            <div className="float-right">
+                <a href="/users/sign_out" data-method="delete">Sign Out</a>
+            </div>
         </div>
     </nav>
 );

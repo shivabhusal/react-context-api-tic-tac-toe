@@ -115,7 +115,7 @@ export default class Canvas extends React.Component {
         <React.Fragment>
             <NavBar user={this.state.currentUser}/>
             <Alert/>
-            <div className="container p-5 text-center">
+            <div className="py-5 text-center">
                 {this.renderHeader()}
 
                 <div className="mt-4 row">

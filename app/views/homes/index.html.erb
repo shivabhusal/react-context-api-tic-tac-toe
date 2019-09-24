@@ -1,0 +1,22 @@
+<div class="container-fluid mt-5 position-absolute mx-auto">
+  <div class="container mt-5 mx-auto">
+    <div class="alert alert-success overflow-auto" role="alert">
+      Hurry up! Register now and enjoy with your friends
+      <div class="float-right">
+        <% unless current_user&.present? %>
+          <a href="<%= new_user_session_path %>" class="btn btn-primary">Sign In</a>
+          <a href="<%= new_user_registration_path %>" class="btn btn-success">Sign Up</a>
+        <% else %>
+          <a href="<%= games_path %>" class="btn btn-primary">Goto Game</a>
+          <a href="<%= destroy_user_session_path %>" data-method="delete" class="btn btn-danger">Sign Out</a>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <%= image_tag 'homepage.jpg', class: 'w-100' %>
+      </div>
+    </div>
+  </div>
+</div>
